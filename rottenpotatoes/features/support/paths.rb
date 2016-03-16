@@ -12,10 +12,15 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
-
+    when /^the details page for "([^"]*)"$/
+      movie_path(Movie.find_by_title($1))
+    when /^the Similar Movies page for "([^"]*)"$/
+      find_by_director_movie_path(Movie.find_by_title($1))
+    when /^the edit page for "([^"]*)"$/ 
+      edit_movie_path(Movie.find_by_title($1)) #$1 is the captured (..) from regex, find_by_<name of attribute>
     when /^the home\s?page$/
       '/'
-
+      
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
